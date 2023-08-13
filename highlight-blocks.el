@@ -75,17 +75,16 @@ If t, don't limit."
   :group 'highlight-blocks
   :group 'faces)
 
-(eval-when-compile
-  (defmacro highlight-blocks--define-faces ()
-    (let ((faces '()))
-      (dotimes (i 9)
-        (push `(defface ,(intern (format "highlight-blocks-depth-%d-face" (1+ i)))
-                 '((((class color) (background dark)) :background ,(format "gray%d" (+ 10 (* i 3))))
-                   (((class color) (background light)) :background ,(format "gray%d" (- 90 (* i 3)))))
-                 ,(format "Current nested block face, depth %d." (1+ i))
-                 :group 'highlight-blocks-faces)
-              faces))
-      `(progn ,@faces))))
+(defmacro highlight-blocks--define-faces ()
+  (let ((faces '()))
+    (dotimes (i 9)
+      (push `(defface ,(intern (format "highlight-blocks-depth-%d-face" (1+ i)))
+               '((((class color) (background dark)) :background ,(format "gray%d" (+ 10 (* i 3))))
+                 (((class color) (background light)) :background ,(format "gray%d" (- 90 (* i 3)))))
+               ,(format "Current nested block face, depth %d." (1+ i))
+               :group 'highlight-blocks-faces)
+            faces))
+    `(progn ,@faces)))
 
 (highlight-blocks--define-faces)
 
